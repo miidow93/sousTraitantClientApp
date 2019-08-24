@@ -1,0 +1,39 @@
+<!-- <ngb-carousel *ngIf="images">
+    <ng-template ngbSlide>
+        <div class="carousel-item active">
+            <img class="d-block w-100" [src]="images[0]" alt="Random first slide">
+
+            <div class="carousel-caption">
+                <h3>First slide label</h3>
+                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template ngbSlide>
+        <img class="d-block w-100" [src]="images[1]" alt="Random second slide">
+        <div class="carousel-caption">
+            <h3>Second slide label</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+    </ng-template>
+    <ng-template ngbSlide>
+        <img class="d-block w-100" [src]="images[2]" alt="Random third slide">
+        <div class="carousel-caption">
+            <h3>Third slide label</h3>
+            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+        </div>
+    </ng-template>
+</ngb-carousel> -->
+
+<ngb-carousel *ngIf="imageToShow">
+    <ng-template ngbSlide *ngFor="let image of imageToShow">
+        <div class="carousel-item active" *ngIf="image.show === true">
+            <img class="d-block w-100" [src]="createImagePath(image.image)" alt="Random first slide">
+
+            <div class="carousel-caption">
+                <h3>{{image.nom}}</h3>
+                <p>{{image.description}}</p>
+            </div>
+        </div>
+    </ng-template>
+</ngb-carousel>
