@@ -7,23 +7,24 @@ import { RegleComponent } from './components/regle/regle.component';
 import { UserComponent } from './components/user/user.component';
 import { PosteComponent } from './components/poste/poste.component';
 import { PosteRegleComponent } from './components/poste/poste-regle/poste-regle.component';
+import { AuthGuard } from './core/guard/auth.guard';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   {
     path: 'admin', component: AdminComponent, children: [
-      { path: '', component: VisiteurComponent, outlet: 'admin' },
-      { path: 'visiteurs', component: VisiteurComponent, outlet: 'admin' },
-      { path: 'regles', component: RegleComponent, outlet: 'admin' },
-      { path: 'users', component: UserComponent, outlet: 'admin' }
+      { path: '', component: VisiteurComponent, outlet: 'admin', canActivate: [AuthGuard] },
+      { path: 'visiteurs', component: VisiteurComponent, outlet: 'admin', canActivate: [AuthGuard] },
+      { path: 'regles', component: RegleComponent, outlet: 'admin', canActivate: [AuthGuard] },
+      { path: 'users', component: UserComponent, outlet: 'admin', canActivate: [AuthGuard] }
     ]
   },
   // { path: 'visiteurs', component: VisiteurComponent, outlet: 'admin' },
   { path: 'login', component: LoginComponent },
   // { path: '**', redirectTo: 'login' },
-  { path: 'poste', component: PosteComponent },
-  { path: 'poste/regle', component: PosteRegleComponent },
+  { path: 'poste', component: PosteComponent, canActivate: [AuthGuard] },
+  { path: 'poste/regle', component: PosteRegleComponent, canActivate: [AuthGuard] },
 
 ];
 

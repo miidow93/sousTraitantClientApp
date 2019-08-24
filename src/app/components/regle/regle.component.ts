@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { FormErrorStateMatcher } from 'src/app/core/handlers/form-error-state-matcher';
 import { RegleService } from 'src/app/core/services/regle/regle.service';
-import { map, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-
 
 
 @Component({
@@ -20,7 +15,6 @@ export class RegleComponent implements OnInit {
 
   public progress: number;
   public message: string;
-  public response: { 'dbPath': '' };
 
   regleForm: FormGroup;
   fileToUpload;
@@ -29,9 +23,7 @@ export class RegleComponent implements OnInit {
   fileData: File = null;
   previewUrl: any = null;
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder,
-    private router: Router, private regleService: RegleService,
-  ) { }
+  constructor(private formBuilder: FormBuilder, private regleService: RegleService) { }
 
 
 
@@ -51,7 +43,7 @@ export class RegleComponent implements OnInit {
     // this.regleService.getTest().subscribe(res => console.log('Resultat: ', res));
   }
 
-  onFormSubmit(form: NgForm) {
+  onFormSubmit(form) {
     console.log(form.value);
     const data = {
       numOrdre: form.value.numOrdre,
