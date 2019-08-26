@@ -14,10 +14,10 @@ const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   {
     path: 'admin', component: AdminComponent, children: [
-      { path: '', component: VisiteurComponent, outlet: 'admin', canActivate: [AuthGuard] },
-      { path: 'visiteurs', component: VisiteurComponent, outlet: 'admin', canActivate: [AuthGuard] },
-      { path: 'regles', component: RegleComponent, outlet: 'admin', canActivate: [AuthGuard] },
-      { path: 'users', component: UserComponent, outlet: 'admin', canActivate: [AuthGuard] }
+      { path: '', component: VisiteurComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
+      { path: 'visiteurs', component: VisiteurComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
+      { path: 'regles', component: RegleComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
+      { path: 'users', component: UserComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ }
     ]
   },
   // { path: 'visiteurs', component: VisiteurComponent, outlet: 'admin' },

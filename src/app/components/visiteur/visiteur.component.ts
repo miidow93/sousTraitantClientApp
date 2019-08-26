@@ -42,33 +42,61 @@ export class VisiteurComponent implements OnInit {
 
       console.log('Length: ', res.length);
     });
+
   }
 
   onChange(term, event) {
-    console.log('Datasource: ', this.dataSource);
+    // console.log('Datasource: ', this.dataSource);
     if (event === 'dateEntree') {
-      this.de = `${term.value._i.year}-0${term.value._i.month + 1}-${term.value._i.date}T00:00:00`;
+      this.de = this.validateDate(term);
+      console.log('De: ', new Date(this.de) + ' ' + this.de);
     } else if (event === 'dateSortie') {
-      this.ds = `${term.value._i.date}/${term.value._i.month}/${term.value._i.year}`;
+      this.ds = this.validateDate(term);
+      console.log('Ds: ', new Date(this.ds) + ' ' + this.ds);
     }
-    console.log(this.de);
-    console.log(new Date(this.de).toLocaleString());
-    var filter = this.dataSource.filter(x => x.dateVisite === this.de);
-    // var find = this.dataSource.find(x => x.name === term);
 
-    console.log('Filter', filter);
-    // console.log('Find', find);
-    if (filter.length > 0) {
-      console.log('Length', filter);
-      this.dataSource = filter;
-    } else {
-      this.dataSource = this.oldDataSource;
+  }
+  filtrer() {
+
+    if (this.de && this.ds) {
+      if (this.de > this.ds) {
+        alert('La date d\'entree doit être supérieure à la date de sortie');
+      } else {
+        const filter = this.dataSource.filter(x => x.dateVisite >= this.de && x.dateVisite <= this.ds);
+        console.log('Filter', filter);
+        if (filter.length > 0) {
+          this.dataSource = filter;
+        }
+      }
     }
   }
 
-  // onChangeDateSortie(dateS) {
-  //   console.log('Term2: ', dateS.value._i);
-  //   const date = `${dateS.value._i.date}/${dateS.value._i.month}/${dateS.value._i.year}`;
-  //   console.log('Date2: ', date);
-  // }
+  validateDate(date) {
+    let result = `${date.value._i.year}`;
+    const validateMonth = `${date.value._i.month}`;
+    const validateDay = `${date.value._i.date}`;
+    console.log('Month: ', validateMonth + ', Day: ' + validateDay);
+    const time = 'T00:00:00';
+    if (Number(validateMonth) < 9 && Number(validateDay) < 10) {
+      result += `-0${Number(validateMonth) + 1}-0${validateDay}${time}`;
+    } else {
+      if (Number(validateMonth) > 9) {
+        result += `-${validateMonth}`;
+      } else {
+        result += `-0${Number(validateMonth) + 1}`;
+      }
+
+      if (Number(validateDay) > 10) {
+        result += `-${validateDay}${time}`;
+      } else {
+        result += `-0${validateDay}${time}`;
+      }
+    }
+    return result;
+  }
+
+  refresh() {
+    this.dataSource = this.oldDataSource;
+  }
+
 }

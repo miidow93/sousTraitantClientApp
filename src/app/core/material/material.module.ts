@@ -4,7 +4,7 @@ import { MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatMen
   , MatFormFieldModule, MatProgressSpinnerModule, MatInputModule, MatTableModule, 
   MatPaginatorModule, MatSortModule, 
   MatSidenavModule, MatListModule, MatDatepickerModule,
-   NativeDateModule, MatNativeDateModule, MatCheckboxModule, MatSelectModule  } from '@angular/material';
+   NativeDateModule, MatNativeDateModule, MatCheckboxModule, MatSelectModule, MatDialogModule, MatGridListModule, MatRadioModule  } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 
@@ -32,7 +32,10 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatNativeDateModule,
     MatMomentDateModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatGridListModule,
+    MatRadioModule
   ],
   exports: [
     MatButtonModule,
@@ -52,7 +55,10 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatNativeDateModule,
     MatMomentDateModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatGridListModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule { }

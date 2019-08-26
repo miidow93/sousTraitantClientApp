@@ -30,7 +30,7 @@ export class UserService {
   }
 
   updateUser(id, data) {
-    return this.http.put(`${API}/${id}`, data)
+    return this.http.put(`${API}${id}`, data)
       .pipe(
         tap(_ => this.log(`update user with ID: ${id}`)),
         catchError(this.handleError('update user', []))

@@ -5,13 +5,12 @@
         </button> -->
         <h1>Admin</h1>
         <span class="menu-spacer"></span>
-        <div>
-            <button mat-button [routerLink]="'/login'"> Accounts </button>
+        <div class="ml-2">
             <button mat-button [routerLink]="[{ outlets: { admin: ['visiteurs'] } }]"> Visiteurs </button>
             <button mat-button [routerLink]="[{ outlets: { admin: ['regles'] } }]"> Règles </button>
             <button mat-button [routerLink]="[{ outlets: { admin: ['users'] } }]"> Utilisateurs </button>
-            <button mat-button [routerLink]="'/activities'"> Activities </button>
-            <button mat-button [routerLink]="'/create-activity'"> Create Activity </button>
+            <button mat-button [routerLink]="'/activities'"> Statistiques </button>
+            <button mat-button (click)="logout()"> Logout </button>
 
         </div>
     </mat-toolbar-row>

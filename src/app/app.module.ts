@@ -22,6 +22,8 @@ import { UserComponent } from './components/user/user.component';
 import { ContentComponent } from './components/poste/content/content.component';
 import { PosteRegleComponent } from './components/poste/poste-regle/poste-regle.component';
 import { ListUserComponent } from './components/user/list-user/list-user.component';
+import { StatistiqueComponent } from './components/statistique/statistique.component';
+import { EditUserComponent } from './components/user/edit-user/edit-user.component';
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -43,6 +45,8 @@ export function getToken() {
     ContentComponent,
     PosteRegleComponent,
     ListUserComponent,
+    StatistiqueComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +68,7 @@ export function getToken() {
     }),
   ],
   providers: [],
+  entryComponents: [EditUserComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
