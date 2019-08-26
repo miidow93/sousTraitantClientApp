@@ -1,0 +1,63 @@
+<div class="container">
+    <h2>Modifier l'utilisateur avec l'ID: {{userToUpdate.id}}</h2>
+    <form [formGroup]="editUserForm" (submit)="onEditSubmit(editUserForm.value)">
+
+        <div class="form-row">
+            <div class="col-md-5">
+                <mat-form-field class="w-100">
+                    <input formControlName="username" matInput placeholder="Username/Pseudo" 
+                        value="{{userToUpdate.username}}">
+                    <mat-error>Le champs est obligatoire.</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-5">
+                <mat-form-field class="w-100">
+                    <input formControlName="nomComplet" matInput placeholder="Nom Complet"
+                        value="{{userToUpdate.nomComplet}}">
+                    <mat-error>Le champs est obligatoire.</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-5">
+                <mat-form-field class="w-100">
+                    <input formControlName="email" matInput placeholder="Email" value="{{userToUpdate.email}}">
+                    <mat-error>Invalid email address.</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-5">
+                <mat-form-field class="w-100">
+                    <input formControlName="password" matInput placeholder="Mot de passe" value="{{userToUpdate.password}}">
+                    <mat-error>Le champs est obligatoire.</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="d-flex form-row justify-content-center">
+            <div class="col-5">
+                <mat-form-field class="w-100">
+                    <mat-select formControlName="idRole" [(ngModel)]="userToUpdate.idRole">
+                        <mat-option *ngFor="let role of roles" [value]="role.id">
+                            {{role.libelle}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <button (click)="close()" mat-flat-button color="primary" class="mr-2">Annuler</button>
+            <button type="submit" [disabled]="!editUserForm.valid" mat-flat-button color="primary">Valider</button>
+        </div>
+        <!-- <div class="controles-container">
+                    <input type="hidden" formControlName="$key">    
+                </div>
+    
+                <div class="controles-container">
+                </div> -->
+
+    </form>
+</div>

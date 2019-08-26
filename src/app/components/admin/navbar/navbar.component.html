@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <!-- <button mat-icon-button>
+            <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+        </button> -->
+        <h1>Admin</h1>
+        <span class="menu-spacer"></span>
+        <div class="ml-2">
+            <button mat-button [routerLink]="[{ outlets: { admin: ['visiteurs'] } }]"> Visiteurs </button>
+            <button mat-button [routerLink]="[{ outlets: { admin: ['regles'] } }]"> Règles </button>
+            <button mat-button [routerLink]="[{ outlets: { admin: ['users'] } }]"> Utilisateurs </button>
+            <button mat-button [routerLink]="'/activities'"> Statistiques </button>
+            <button mat-button (click)="logout()"> Logout </button>
+
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
