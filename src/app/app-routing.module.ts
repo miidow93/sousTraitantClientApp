@@ -8,6 +8,7 @@ import { UserComponent } from './components/user/user.component';
 import { PosteComponent } from './components/poste/poste.component';
 import { PosteRegleComponent } from './components/poste/poste-regle/poste-regle.component';
 import { AuthGuard } from './core/guard/auth.guard';
+import { StatistiqueComponent } from './components/statistique/statistique.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
       { path: '', component: VisiteurComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
       { path: 'visiteurs', component: VisiteurComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
       { path: 'regles', component: RegleComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
-      { path: 'users', component: UserComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ }
+      { path: 'users', component: UserComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
+      { path: 'statistiques', component: StatistiqueComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ }
     ]
   },
   // { path: 'visiteurs', component: VisiteurComponent, outlet: 'admin' },

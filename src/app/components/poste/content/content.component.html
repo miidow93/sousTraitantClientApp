@@ -82,11 +82,11 @@
           <input matInput placeholder="Telephone" formControlName="telephone" pattern="[0-9]{10}" maxlength="10">
         </mat-form-field>&nbsp;
         <mat-form-field class="col-md-2  col-sm-4 ">
-          <input matInput placeholder="Societe" formControlName="Societe" >
-          <!-- <mat-autocomplete #auto="matAutocomplete">
+          <input matInput placeholder="Societe" formControlName="Societe" [matAutocomplete]="auto">
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let societe of (filteredSocietes | async)" [value]="societe.nomSociete">{{societe.nomSociete}}</mat-option>
-          </mat-autocomplete> -->
-        </mat-form-field>&nbsp;
+        </mat-autocomplete>&nbsp;
         <mat-form-field class="col-md-1  col-sm-3">
           <input type="number" matInput placeholder="Badge" formControlName="numBadge">
         </mat-form-field>
