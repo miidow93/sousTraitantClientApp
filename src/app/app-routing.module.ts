@@ -9,6 +9,10 @@ import { PosteComponent } from './components/poste/poste.component';
 import { PosteRegleComponent } from './components/poste/poste-regle/poste-regle.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { StatistiqueComponent } from './components/statistique/statistique.component';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2b85ee033ee7cd26860905aa27a83f445488c21c
 
 
 const routes: Routes = [
@@ -20,6 +24,7 @@ const routes: Routes = [
       { path: 'regles', component: RegleComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
       { path: 'users', component: UserComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
       { path: 'stats', component: StatistiqueComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ }
+
     ]
   },
   // { path: 'visiteurs', component: VisiteurComponent, outlet: 'admin' },

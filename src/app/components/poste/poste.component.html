@@ -1,12 +1,11 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-    <mat-icon>more_vert</mat-icon>
-</button>
-<mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="logout()">
+<div style="float: right">
+    <button  mat-raised-button color="gray" (click)="logout()">
         <mat-icon>arrow_back</mat-icon>
         <span>Logout</span>
     </button>
-</mat-menu>
+</div>
+
+
 <div class="myContainer">
     <app-content></app-content>
 </div>

@@ -1,99 +1,101 @@
 <div class="example-container">
-    <table mat-table [dataSource]="datasource" class="mat-elevation-z8">
-  
-      <!--- Note that these columns can be defined in any order.
+  <table mat-table [dataSource]="datasource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
-  
-      <!-- Position Column -->
-      <ng-container matColumnDef="nomComplet">
-        <th mat-header-cell *matHeaderCellDef> Nom Complet </th>
-        <td mat-cell *matCellDef="let element"> {{element.nomComplet}} </td>
-      </ng-container>
-  
-      <!-- Name Column -->
-      <ng-container matColumnDef="cinCnss">
-        <th mat-header-cell *matHeaderCellDef> Cin/Cnss </th>
-        <td mat-cell *matCellDef="let element"> {{element.cinCnss}} </td>
-      </ng-container>
-  
-      <!-- Weight Column -->
-      <ng-container matColumnDef="personneService">
-        <th mat-header-cell *matHeaderCellDef> Personne/Service a Visité </th>
-        <td mat-cell *matCellDef="let element"> {{element.personneService}} </td>
-      </ng-container>
-  
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="heureEntree">
-        <th mat-header-cell *matHeaderCellDef> H Entree </th>
-        <td mat-cell *matCellDef="let element">
-          {{ (element.heureEntree !== null ) ? ('0000-00-00T' + element.heureEntree| date: 'HH:mm') : ''}} </td>
-      </ng-container>
-      <ng-container matColumnDef="heureSortie">
-        <th mat-header-cell *matHeaderCellDef> H Sortie </th>
-        <td mat-cell *matCellDef="let element">
-          {{(element.heureSortie !== null ) ?
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="nomComplet">
+      <th mat-header-cell *matHeaderCellDef> Nom Complet </th>
+      <td mat-cell *matCellDef="let element"> {{element.nomComplet}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="cinCnss">
+      <th mat-header-cell *matHeaderCellDef> Cin/Cnss </th>
+      <td mat-cell *matCellDef="let element"> {{element.cinCnss}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="personneService">
+      <th mat-header-cell *matHeaderCellDef> Personne/Service a Visité </th>
+      <td mat-cell *matCellDef="let element"> {{element.personneService}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="heureEntree">
+      <th mat-header-cell *matHeaderCellDef> H Entree </th>
+      <td mat-cell *matCellDef="let element">
+        {{ (element.heureEntree !== null ) ? ('0000-00-00T' + element.heureEntree| date: 'HH:mm') : ''}} </td>
+    </ng-container>
+    <ng-container matColumnDef="heureSortie">
+      <th mat-header-cell *matHeaderCellDef> H Sortie </th>
+      <td mat-cell *matCellDef="let element">
+        {{(element.heureSortie !== null ) ?
           ('0000-00-00T' + element.heureSortie | date: 'HH:mm') : ''}}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="telephone">
-        <th mat-header-cell *matHeaderCellDef> Telephone </th>
-        <td mat-cell *matCellDef="let element"> {{element.telephone}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="Societe">
-        <th mat-header-cell *matHeaderCellDef> Societe </th>
-        <td mat-cell *matCellDef="let element"> {{element.idSocieteNavigation.nomSociete}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="numBadge">
-        <th mat-header-cell *matHeaderCellDef> Badge </th>
-        <td mat-cell *matCellDef="let element"> {{element.numBadge}} </td>
-      </ng-container>
-  
-  
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element">
-          <button *ngIf="!element.heureSortie" md-raised-button class="btn btn-warning"
-            (click)="OnSortie(element.id)">Sortie </button>
-          <button *ngIf="element.heureSortie" md-raised-button class="btn btn-success" style="background-color: green;"
-            disabled>✓</button>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </div>
-  <!--Input Visiteur-->
-  <div class="formPoste">
-    <form [formGroup]="posteForm" (ngSubmit)="onFormSubmit(posteForm.value)" class="example-form">
-      <div class="pl-2">
-        <mat-form-field class="col-md-2 col-sm-4">
-          <input matInput placeholder="Nom Complet" formControlName="nomComplet">
-        </mat-form-field>&nbsp;
-        <mat-form-field class=" col-md-1  col-sm-3">
-          <input matInput placeholder="Cin/Cnss" formControlName="cinCnss">
-        </mat-form-field>&nbsp;
-        <mat-form-field class="col-md-2  col-sm-4">
-          <input matInput placeholder="Personne/Service a Visité" formControlName="personneService">
-        </mat-form-field>&nbsp;
-        <mat-form-field class="col-md-2  col-sm-4">
-          <span matPrefix>+212 &nbsp;</span>
-          <input matInput placeholder="Telephone" formControlName="telephone" pattern="[0-9]{10}" maxlength="10">
-        </mat-form-field>&nbsp;
-        <mat-form-field class="col-md-2  col-sm-4 ">
-          <input matInput placeholder="Societe" formControlName="Societe" >
-          <!-- <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let societe of (filteredSocietes | async)" [value]="societe.nomSociete">{{societe.nomSociete}}</mat-option>
-          </mat-autocomplete> -->
-        </mat-form-field>&nbsp;
-        <mat-form-field class="col-md-1  col-sm-3">
-          <input type="number" matInput placeholder="Badge" formControlName="numBadge">
-        </mat-form-field>
-        <span class="col-md-1 col-sm-4 ">
-          <button type="submit" class="btn btn-warning " [disabled]="!posteForm.valid">Valider</button>
-        </span>
-  
-      </div>
-    </form>
-  </div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="telephone">
+      <th mat-header-cell *matHeaderCellDef> Telephone </th>
+      <td mat-cell *matCellDef="let element"> {{element.telephone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Societe">
+      <th mat-header-cell *matHeaderCellDef> Societe </th>
+      <td mat-cell *matCellDef="let element"> {{element.idSocieteNavigation.nomSociete}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="numBadge">
+      <th mat-header-cell *matHeaderCellDef> Badge </th>
+      <td mat-cell *matCellDef="let element"> {{element.numBadge}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <button *ngIf="!element.heureSortie" md-raised-button class="btn btn-warning"
+          (click)="OnSortie(element.id)">Sortie </button>
+        <button *ngIf="element.heureSortie" md-raised-button class="btn btn-success" style="background-color: green;"
+          disabled>✓</button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+<!--Input Visiteur-->
+<div class="formPoste">
+  <form [formGroup]="posteForm" (ngSubmit)="onFormSubmit(posteForm.value)" class="example-form">
+    <div class="pl-2">
+      <mat-form-field class="col-md-2 col-sm-4">
+        <input matInput placeholder="Nom Complet" formControlName="nomComplet">
+      </mat-form-field>&nbsp;
+      <mat-form-field class=" col-md-1  col-sm-3">
+        <input matInput placeholder="Cin/Cnss" formControlName="cinCnss">
+      </mat-form-field>&nbsp;
+      <mat-form-field class="col-md-2  col-sm-4">
+        <input matInput placeholder="Personne/Service a Visité" formControlName="personneService">
+      </mat-form-field>&nbsp;
+      <mat-form-field class="col-md-2  col-sm-4">
+        <span matPrefix>+212 &nbsp;</span>
+        <input matInput placeholder="Telephone" formControlName="telephone" pattern="[0-9]{10}" maxlength="10">
+      </mat-form-field>&nbsp;
+      <mat-form-field class="col-md-2  col-sm-4 ">
+        <input matInput placeholder="Societe" formControlName="Societe" [matAutocomplete]="auto">
+      </mat-form-field>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let societe of (filteredSocietes | async)" [value]="societe.nomSociete">
+          {{societe.nomSociete}}</mat-option>
+      </mat-autocomplete>
+
+      <mat-form-field class="ml-2 col-md-1 col-sm-3">
+        <input type="number" matInput placeholder="Badge" formControlName="numBadge">
+      </mat-form-field>
+      <span class="col-md-1 col-sm-4 ">
+        <button type="submit" class="btn btn-warning " [disabled]="!posteForm.valid">Valider</button>
+      </span>
+
+    </div>
+  </form>
+</div>

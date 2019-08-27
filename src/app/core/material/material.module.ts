@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatMenuModule
+import {
+  MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, MatMenuModule
   , MatFormFieldModule, MatProgressSpinnerModule, MatInputModule, MatTableModule,
   MatPaginatorModule, MatSortModule,
   MatSidenavModule, MatListModule, MatDatepickerModule,
-   NativeDateModule, MatNativeDateModule, MatCheckboxModule,
-    MatSelectModule, MatDialogModule, MatGridListModule, MatRadioModule  } from '@angular/material';
+  NativeDateModule, MatNativeDateModule, MatCheckboxModule, MatSelectModule,
+  MatDialogModule, MatGridListModule, MatRadioModule, MatAutocompleteModule
+} from '@angular/material';
+
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 
@@ -36,7 +39,9 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatSelectModule,
     MatDialogModule,
     MatGridListModule,
-    MatRadioModule
+    MatRadioModule,
+    MatAutocompleteModule
+
   ],
   exports: [
     MatButtonModule,
@@ -59,7 +64,9 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatSelectModule,
     MatDialogModule,
     MatGridListModule,
-    MatRadioModule
+    MatRadioModule,
+    MatAutocompleteModule
+
   ]
 })
 export class MaterialModule { }

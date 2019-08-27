@@ -7,6 +7,7 @@
     <div class="justify-content-md-center">
         <ngb-carousel *ngIf="imageToShow" style=" margin: auto; width: 65%; ">
             <ng-template ngbSlide *ngFor="let image of imageToShow ; let i = index">
+
                 <div class="carousel-item active" *ngIf="image.show === true">
                     <img class="d-block w-100 img-carousel " [src]="createImagePath(image.image)"
                         alt="Random first slide">
