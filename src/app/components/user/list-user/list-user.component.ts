@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Users } from 'src/app/shared/models/users';
 import { UserService } from 'src/app/core/services/user/user.service';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 
 @Component({
@@ -23,13 +23,12 @@ export class ListUserComponent implements OnInit {
 
   userToUpdate;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private matDialog: MatDialog) { }
+  constructor(private userService: UserService,
+              private changeDetectorRefs: ChangeDetectorRef,
+              private matDialog: MatDialog) { }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe(res => {
-      console.log(res);
-      this.dataSource = res;
-    });
+    this.refresh();
   }
 
   toggle(element) {
@@ -37,9 +36,13 @@ export class ListUserComponent implements OnInit {
     this.userToUpdate = element;
     const config = new MatDialogConfig();
     config.width = '80%';
+    config.disableClose = true;
     config.autoFocus = true;
     config.data = element;
-    this.matDialog.open(EditUserComponent, config);
+    this.matDialog.open(EditUserComponent, config).afterClosed().subscribe(async res => {
+      console.log('Closed: ', res);
+      await this.refresh();
+    });
   }
 
   updateUser(form: NgForm) {
@@ -55,6 +58,12 @@ export class ListUserComponent implements OnInit {
     };
 
     console.log(data);
-    // this.userService.updateUser(this.userToUpdate.id, form).subscribe(res => console.log(res));
+  }
+
+  refresh() {
+    this.userService.getUsers().subscribe(res => {
+      this.dataSource = res; // new MatTableDataSource(res);
+      this.changeDetectorRefs.detectChanges();
+    });
   }
 }

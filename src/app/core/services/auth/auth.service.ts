@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { constants } from 'src/app/shared/constants';
 
-const API = 'http://localhost:4772/api/auth/';
-
+// const API = 'http://localhost:4772/api/auth/';
+const API = constants.api + 'auth/';
 
 @Injectable({
   providedIn: 'root'

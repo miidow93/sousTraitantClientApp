@@ -2,8 +2,9 @@ import { tap, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { constants } from 'src/app/shared/constants';
 
-const API = 'http://localhost:4772/api/visiteurs/';
+const API = constants.api + 'visiteurs/';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class VisiteurService {
     return this.http.post(`${API}postev`, data);
   }
 
-  SortieVisiteur(id: number) {
+  sortieVisiteur(id: number) {
     return this.http.get(`${API}sortie/${id}`);
   }
 

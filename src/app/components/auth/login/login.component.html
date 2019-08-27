@@ -5,7 +5,7 @@
     <mat-card class="example-card">
         <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit(loginForm.value)">
             <mat-form-field class="example-full-width">
-                <input matInput type="email" placeholder="Email" formControlName="username"
+                <input matInput type="email" placeholder="Email/Pseudo" formControlName="username"
                     [errorStateMatcher]="matcher">
                 <mat-error>
                     <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">Please enter

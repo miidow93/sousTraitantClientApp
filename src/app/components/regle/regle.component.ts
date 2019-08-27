@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { FormErrorStateMatcher } from 'src/app/core/handlers/form-error-state-matcher';
 import { RegleService } from 'src/app/core/services/regle/regle.service';
+import { MatDialog, MatTableDataSource, MatPaginator, MatDialogConfig } from '@angular/material';
+import { AddRegleComponent } from './add-regle/add-regle.component';
+import { EditRegleComponent } from './edit-regle/edit-regle.component';
 
 
 @Component({
@@ -13,76 +16,67 @@ import { RegleService } from 'src/app/core/services/regle/regle.service';
 })
 export class RegleComponent implements OnInit {
 
-  public progress: number;
-  public message: string;
+  listRegle = new MatTableDataSource();
+  displayedColumns: string[] = ['id', 'nom', 'numOrdre', 'description', 'image', 'actions'];
+  searchKey: string;
 
-  regleForm: FormGroup;
-  fileToUpload;
-  matcher = new FormErrorStateMatcher();
-  isLoadingResults = false;
-  fileData: File = null;
-  previewUrl: any = null;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
-  constructor(private formBuilder: FormBuilder, private regleService: RegleService) { }
+  constructor(private dialog: MatDialog,
+              private regleService: RegleService,
+              private changeDetectorRefs: ChangeDetectorRef) { }
 
 
 
   ngOnInit() {
-    this.regleForm = this.formBuilder.group({
-      numOrdre: [null, [Validators.required, Validators.min(1)]],
-      nom: [null, [Validators.required]],
-      description: [null, [Validators.required]],
-      // file: [null, Validators.required],
-      show: [null, [Validators.required]]
+    this.refresh();
+  }
+
+  onSearchClear() {
+    this.searchKey = '';
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    this.listRegle.filter = this.searchKey.trim().toLowerCase();
+  }
+
+  onCreate() {
+    const config = new MatDialogConfig();
+    config.disableClose = true;
+    config.autoFocus = true;
+    config.width = '80%';
+    this.dialog.open(AddRegleComponent, config)
+      .afterClosed().subscribe(res => this.refresh());
+  }
+
+  refresh() {
+    this.regleService.getRules().subscribe((res: any[]) => {
+      this.listRegle.data = res;
+      this.listRegle.paginator = this.paginator;
+      this.changeDetectorRefs.detectChanges();
     });
-
-
-    /*this.regleForm = this.formBuilder.group({
-      caption: [null, Validators.required]
-    });*/
-    // this.regleService.getTest().subscribe(res => console.log('Resultat: ', res));
   }
 
-  onFormSubmit(form) {
-    console.log(form.value);
-    const data = {
-      numOrdre: form.value.numOrdre,
-      nom: form.value.nom,
-      description: form.value.description,
-      image: this.previewUrl,
-      show: (form.value.show) ? 1 : 0
-    };
-
-    this.regleService.addRule(data).subscribe(res => console.log(res));
-
-    console.log('FileToUpload: ', this.previewUrl);
-    // this.http.post('http://localhost:4772/api/upload/', formData).subscribe(res => console.log(res));
-
+  onEdit(element) {
+    console.log(element);
+    const config = new MatDialogConfig();
+    config.disableClose = true;
+    config.autoFocus = true;
+    config.width = '80%';
+    config.data = element;
+    this.dialog.open(EditRegleComponent, config)
+      .afterClosed().subscribe(async res => {
+        console.log('Close: ', res);
+        await this.refresh();
+      });
   }
 
-  public upload(event: any): void {
-    this.fileData = event.target.files[0];
-    this.preview();
+  onDelete(id) { }
+
+  createImagePath(serverPath: string) {
+    // return `http://192.168.1.105:1020/${serverPath}`;
+    return `http://localhost:4772/${serverPath}`;
   }
-
-  preview() {
-    // Show preview 
-    var mimeType = this.fileData.type;
-    if (mimeType.match(/image\/*/) == null) {
-      return;
-    }
-
-    var reader = new FileReader();
-    reader.readAsDataURL(this.fileData);
-    reader.onload = (_event) => {
-      this.previewUrl = reader.result;
-      console.log('Result: ', reader.result);
-      console.log('Reader: ', this.previewUrl);
-    };
-  }
-
-  /*public uploadFinished(event) {
-    this.response = event;
-  }*/
 
 }

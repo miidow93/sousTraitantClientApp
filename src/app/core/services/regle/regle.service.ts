@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
+import { constants } from 'src/app/shared/constants';
 
+// const API = 'http://localhost:4772/api/regles/';
 
-const API = 'http://localhost:4772/api/regles/';
+const API = constants.api + 'regles/';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class RegleService {
 
   addRule(data) {
     return this.http.post(`${API}`, data)
-    .pipe(
+      .pipe(
         tap(_ => this.log('add rule')),
         catchError(this.handleError('add rule', []))
       );
@@ -23,9 +25,17 @@ export class RegleService {
 
   getRules() {
     return this.http.get(`${API}`)
-    .pipe(
+      .pipe(
         tap(_ => this.log('add rule')),
         catchError(this.handleError('add rule', []))
+      );
+  }
+
+  updateRule(id, data) {
+    return this.http.put(`${API}${id}`, data)
+      .pipe(
+        tap(_ => this.log('update rule')),
+        catchError(this.handleError('update rule', []))
       );
   }
 

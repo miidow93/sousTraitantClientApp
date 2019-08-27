@@ -1,34 +1,56 @@
-
 <app-list-regle></app-list-regle>
-  
-<div class="row justify-content-center">
-  <div class="col-8">
-    <form [formGroup]="regleForm"  (ngSubmit)="onFormSubmit(regleForm)" >
-      <mat-card class="example-container">
 
-        <mat-form-field>
-          <input type="number" matInput placeholder="Veuillez saisir le nombre d'ordre" formControlName="numOrdre" name="numOrdre">
-        </mat-form-field>
-
-        <mat-form-field>
-          <input type="text" matInput placeholder="Veuillez saisir le nom" formControlName="nom" name="nom">
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-          <textarea matInput placeholder="Laissez une description" formControlName="description" name="description"></textarea>
-        </mat-form-field>
-
-        <div>
-          <input type="file" id="file" name="file" class="inputfile" #file (change)="upload($event);"/>
-          <label for="file"> <i class="fas fa-upload"></i> Choose a file</label>
-        </div>
-        <!-- <app-upload onUploadFinished="uploadFinished($event);"></app-upload> -->
-
-        <mat-checkbox class="example-margin" formControlName="show" name="show">Afficher la règle</mat-checkbox>
-
-        <button mat-raised-button>Ajouter</button>
-      </mat-card>
-    </form>
+<div class="w-90">
+  <div class="search-div">
+    <button mat-raised-button (click)="onCreate()">
+      <mat-icon>add</mat-icon>Create
+    </button>
+    <mat-form-field class="ml-2 w-50 search-form-field" floatLabel="never">
+      <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
   </div>
 
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="listRegle" matSort>
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="numOrdre">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>No Ordre</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.numOrdre}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="nom">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Nom</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.nom}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.description}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Image</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <img [src]="createImagePath(element.image)" width="30%" height="10%" />
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button (click)="onEdit(row)">
+            <mat-icon>launch</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="onDelete(row.$key)">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+  </div>
 </div>

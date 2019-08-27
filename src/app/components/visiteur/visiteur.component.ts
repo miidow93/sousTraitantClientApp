@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { VisiteurService } from 'src/app/core/services/visiteur/visiteur.service';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -7,6 +7,7 @@ import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 import { FormControl } from '@angular/forms';
 import { Visiteur } from 'src/app/shared/models/visiteur';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 const moment = _rollupMoment || _moment;
 
@@ -22,13 +23,18 @@ const moment = _rollupMoment || _moment;
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
 })
-export class VisiteurComponent implements OnInit {
+export class VisiteurComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['Test', 'name', 'weight', 'symbol'];
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
-  dataSource: Visiteur[];
-  oldDataSource = [];
+  displayedColumns: string[] = ['id', 'nomComplet', 'cinCnss', 'dateVisite', 'heureEntree', 'heureSortie', 'telephone'];
 
+  dataSource = new MatTableDataSource();
+  oldDataSource;
+  pageSizeOption = [5, 10, 20];
+
+
+  data = [];
   dateEntree = new FormControl(moment());
   dateSortie = new FormControl(moment());
   de; ds;
@@ -36,17 +42,24 @@ export class VisiteurComponent implements OnInit {
 
   ngOnInit() {
     this.visiteurService.getVisitors().subscribe(res => {
-      console.log(res);
-      this.dataSource = res;
-      this.oldDataSource = this.dataSource;
-
-      console.log('Length: ', res.length);
+      // console.log(res);
+      this.dataSource.data = res;
+      this.oldDataSource = this.dataSource.data;
+      this.data = <any[]>this.dataSource.data;
     });
 
+    
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.de = moment(this.dateEntree.value).format('YYYY-MM-DD') + 'T00:00:00';
+    this.ds = moment(this.dateSortie.value).format('YYYY-MM-DD') + 'T00:00:00';
+    // console.log(`1: Du ${this.de}, Au ${this.ds}`);
   }
 
   onChange(term, event) {
-    // console.log('Datasource: ', this.dataSource);
+    // console.log('Date: ', term.value);
     if (event === 'dateEntree') {
       this.de = this.validateDate(term);
       console.log('De: ', new Date(this.de) + ' ' + this.de);
@@ -54,18 +67,23 @@ export class VisiteurComponent implements OnInit {
       this.ds = this.validateDate(term);
       console.log('Ds: ', new Date(this.ds) + ' ' + this.ds);
     }
-
   }
-  filtrer() {
 
+  filtrer() {
+    // console.log(`De ${this.de}, ds ${this.ds}`);
+    console.log('DataSOurce: ', this.dataSource.data);
     if (this.de && this.ds) {
+      // console.log('Init');
       if (this.de > this.ds) {
         alert('La date d\'entree doit être supérieure à la date de sortie');
       } else {
-        const filter = this.dataSource.filter(x => x.dateVisite >= this.de && x.dateVisite <= this.ds);
-        console.log('Filter', filter);
+        // console.log(`Du ${this.de}, Au ${this.ds}`);
+        const filter = this.data.filter(x => x.dateVisite >= this.de && x.dateVisite <= this.ds);
+        // const filter = this.data.filter(x => x.dateVisite === this.de && x.dateVisite === this.ds);
+        // console.log('Filter', filter);
+        // console.log('DataSOurce: ', this.dataSource.data);
         if (filter.length > 0) {
-          this.dataSource = filter;
+          this.dataSource.data = filter;
         }
       }
     }
@@ -96,7 +114,7 @@ export class VisiteurComponent implements OnInit {
   }
 
   refresh() {
-    this.dataSource = this.oldDataSource;
+    this.dataSource.data = this.oldDataSource;
   }
 
 }

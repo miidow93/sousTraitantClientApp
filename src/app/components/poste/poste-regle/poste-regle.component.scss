@@ -1,4 +1,14 @@
-.myregle{
-    color: red;
-    font-size: 3vw;
+.myregle {
+  color: red;
+  font-size: 3vw;
+}
+
+.img-carousel {
+  height: 450px;
+}
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .img-carousel {
+    height: 250px;
+  }
 }

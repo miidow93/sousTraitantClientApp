@@ -80,7 +80,7 @@ export class ContentComponent implements OnInit {
   OnSortie(id) {
     if (confirm('Validez la sortie ?')) {
       console.log('Sortie ID: ', id);
-      this.service.SortieVisiteur(id).subscribe(res => {
+      this.service.sortieVisiteur(id).subscribe(res => {
         this.showConfig();
         console.log('Sortie Ok', res);
       },

@@ -46,18 +46,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onFormSubmit(form: NgForm) {
-    /*const data = {
-      nomComplet: form.nomComplet,
-      email: form.email,
-      username: form.username,
-      password: form.password,
-      role: form.role
-    };
-    console.log('Data: ', form);*/
     this.userService.addUser(form)
       .subscribe(res => {
         console.log(res);
-        this.router.navigate(['login']);
+        this.registerForm.reset();
       }, err => {
         console.log(err);
       });
