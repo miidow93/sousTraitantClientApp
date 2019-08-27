@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { RegleService } from 'src/app/core/services/regle/regle.service';
 
+
 @Component({
   selector: 'app-poste-regle',
   templateUrl: './poste-regle.component.html',
   styleUrls: ['./poste-regle.component.scss']
 })
 export class PosteRegleComponent implements OnInit {
+
   imageServer;
   imageLength=0;
   imageToShow = [];

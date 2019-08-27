@@ -11,6 +11,7 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { StatistiqueComponent } from './components/statistique/statistique.component';
 
 
+
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'regles', component: RegleComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
       { path: 'users', component: UserComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
       { path: 'statistiques', component: StatistiqueComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ }
+
     ]
   },
   // { path: 'visiteurs', component: VisiteurComponent, outlet: 'admin' },

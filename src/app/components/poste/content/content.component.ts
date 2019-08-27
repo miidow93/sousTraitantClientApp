@@ -8,6 +8,7 @@ import { startWith, map } from 'rxjs/operators';
 import { Societe } from 'src/app/shared/models/societe';
 import { SocieteService } from 'src/app/core/services/societe/societe.service';
 
+
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
@@ -25,6 +26,7 @@ export class ContentComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   displayedColumns: string[] = ['nomComplet', 'cinCnss', 'personneService', 'heureEntree', 'heureSortie', 'telephone', 'Societe', 'numBadge', 'actions'];
   datasource;
+
   societes = [];
   filteredSocietes: Observable<any[]>;
   societeControl = new FormControl();
@@ -35,9 +37,8 @@ export class ContentComponent implements OnInit {
     this.showConfig();
     this.showSociete();
     this.posteForm = this.formBuilder.group({
-      // 'id':[null, [Validators.required]],
-      
       Societe:this.societeControl,
+
       nomComplet: [null, [Validators.required]],
       cinCnss: [null, [Validators.required]],
       personneService: [null, [Validators.required]],
@@ -45,7 +46,6 @@ export class ContentComponent implements OnInit {
       // 'heureSortie': [null, [Validators.required]],
       // 'dateVisite': [null, [Validators.required]],
       telephone: [null, [Validators.required]],
-      //Societe: [null, [Validators.required]],
       numBadge: [null],
     });
   }
@@ -58,6 +58,7 @@ export class ContentComponent implements OnInit {
         this.datasource = new MatTableDataSource(data);
       });
   }
+
   showSociete(){
     this.servSociete.getSocietes()
     .subscribe((data: any[]) => {
@@ -65,6 +66,7 @@ export class ContentComponent implements OnInit {
       this.societes = data;
     });
   }
+
   onFormSubmit(form: NgForm) {
     this.service.addVisitor(form).subscribe(res => {
       this.resetform();
@@ -89,6 +91,7 @@ export class ContentComponent implements OnInit {
     const filterValue = value!= null ? value.toLowerCase():"";
     return this.societes.filter(e => e.nomSociete.toLowerCase().includes(filterValue));
   }
+
   OnSortie(id) {
     if (confirm('Validez la sortie ?')) {
       console.log('Sortie ID: ', id);

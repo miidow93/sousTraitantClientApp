@@ -1,5 +1,7 @@
+
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Chart } from 'chart.js';
+
 @Component({
   selector: 'app-statistique',
   templateUrl: './statistique.component.html',
@@ -9,10 +11,12 @@ import { Chart } from 'chart.js';
 export class StatistiqueComponent implements OnInit, AfterViewInit {
   @ViewChild('myChart', { static: false }) myChart: ElementRef;
   public context: CanvasRenderingContext2D;
+
   constructor() { }
 
   ngOnInit() {
   }
+
 
   ngAfterViewInit(): void {
     this.context = (<HTMLCanvasElement>this.myChart.nativeElement).getContext('2d');
@@ -53,5 +57,4 @@ export class StatistiqueComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
 }
