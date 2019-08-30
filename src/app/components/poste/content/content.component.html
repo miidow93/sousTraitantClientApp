@@ -90,7 +90,7 @@
       </mat-autocomplete>
 
       <mat-form-field class="ml-2 col-md-1 col-sm-3">
-        <input type="number" matInput placeholder="Badge" formControlName="numBadge">
+        <input type="number" matInput placeholder="Badge" formControlName="numBadge" min="1">
       </mat-form-field>
       <span class="col-md-1 col-sm-4 ">
         <button type="submit" class="btn btn-warning " [disabled]="!posteForm.valid">Valider</button>

@@ -41,7 +41,6 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatGridListModule,
     MatRadioModule,
     MatAutocompleteModule
-
   ],
   exports: [
     MatButtonModule,
@@ -66,7 +65,6 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatGridListModule,
     MatRadioModule,
     MatAutocompleteModule
-
   ]
 })
 export class MaterialModule { }

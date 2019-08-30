@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   password = '';
   matcher = new FormErrorStateMatcher();
   isLoadingResults = false;
+  message = '';
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { }
 
@@ -25,21 +26,26 @@ export class LoginComponent implements OnInit {
       password: [null, [Validators.required/*, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$')*/]]
     });
   }
+
   onFormSubmit(form: NgForm) {
     this.authService.login(form)
       .subscribe(res => {
-        console.log(res);
+        console.log('Login: ', res);
+        if (res.message) {
+          this.message = res.message;
+        }
         if (res.token) {
           localStorage.setItem('token', res.token);
           if (res.role) {
             localStorage.setItem('role', res.role);
-            if (res.role === 'Admin') {
+            if (res.role === 'Admin' || res.role === 'Directeur') {
               this.router.navigate(['admin']);
             } else {
               this.router.navigate(['poste']);
             }
           }
         }
-      }, err => console.log(err));
+      }, err => console.log('Error: ', err));
+
   }
 }

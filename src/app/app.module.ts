@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ChartsModule } from 'ng2-charts';
+import { NgxPrintModule } from 'ngx-print';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -62,11 +64,14 @@ export function getToken() {
     CoreModule,
     NgbModule,
     NgbCarouselModule,
+    ChartsModule,
+    NgxPrintModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,
         whitelistedDomains: [
-          'http://localhost:4772'
+          'http://localhost:4772',
+          'http://192.168.1.105:1020'
         ]
       }
     }),

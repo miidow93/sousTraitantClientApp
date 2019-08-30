@@ -9,30 +9,24 @@ import { PosteComponent } from './components/poste/poste.component';
 import { PosteRegleComponent } from './components/poste/poste-regle/poste-regle.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { StatistiqueComponent } from './components/statistique/statistique.component';
-<<<<<<< HEAD
-=======
 
->>>>>>> 2b85ee033ee7cd26860905aa27a83f445488c21c
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   {
     path: 'admin', component: AdminComponent, children: [
-      { path: '', component: VisiteurComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
-      { path: 'visiteurs', component: VisiteurComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
-      { path: 'regles', component: RegleComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
-      { path: 'users', component: UserComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ },
-      { path: 'stats', component: StatistiqueComponent, outlet: 'admin'/*, canActivate: [AuthGuard]*/ }
-
+      { path: '', component: VisiteurComponent, outlet: 'admin', canActivate: [AuthGuard] },
+      { path: 'visiteurs', component: VisiteurComponent, outlet: 'admin', canActivate: [AuthGuard] },
+      { path: 'regles', component: RegleComponent, outlet: 'admin', canActivate: [AuthGuard] },
+      { path: 'users', component: UserComponent, outlet: 'admin', canActivate: [AuthGuard] },
+      { path: 'stats', component: StatistiqueComponent, outlet: 'admin', canActivate: [AuthGuard] }
     ]
   },
-  // { path: 'visiteurs', component: VisiteurComponent, outlet: 'admin' },
-  { path: 'login', component: LoginComponent },
-  // { path: '**', redirectTo: 'login' },
   { path: 'poste', component: PosteComponent, canActivate: [AuthGuard] },
   { path: 'poste/regle', component: PosteRegleComponent, canActivate: [AuthGuard] },
-
+  { path: 'login', component: LoginComponent },
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({

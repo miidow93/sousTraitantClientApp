@@ -28,6 +28,7 @@ export class PosteRegleComponent implements OnInit {
   }
 
   createImagePath(serverPath: string) {
-    return `http://localhost:4772/${serverPath}`;
+    return `http://192.168.1.105:1020/${serverPath}`;
+    // return `http://localhost:4772/${serverPath}`;
   }
 }

@@ -23,8 +23,8 @@ export class RegleComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   constructor(private dialog: MatDialog,
-              private regleService: RegleService,
-              private changeDetectorRefs: ChangeDetectorRef) { }
+    private regleService: RegleService,
+    private changeDetectorRefs: ChangeDetectorRef) { }
 
 
 
@@ -54,8 +54,8 @@ export class RegleComponent implements OnInit {
     this.regleService.getRules().subscribe((res: any[]) => {
       this.listRegle.data = res;
       this.listRegle.paginator = this.paginator;
-      this.changeDetectorRefs.detectChanges();
     });
+    this.changeDetectorRefs.detectChanges();
   }
 
   onEdit(element) {
@@ -75,8 +75,8 @@ export class RegleComponent implements OnInit {
   onDelete(id) { }
 
   createImagePath(serverPath: string) {
-    // return `http://192.168.1.105:1020/${serverPath}`;
-    return `http://localhost:4772/${serverPath}`;
+    return `http://192.168.1.105:1020/${serverPath}`;
+    // return `http://localhost:4772/${serverPath}`;
   }
 
 }

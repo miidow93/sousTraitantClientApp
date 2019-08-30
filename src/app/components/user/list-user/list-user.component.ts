@@ -39,9 +39,9 @@ export class ListUserComponent implements OnInit {
     config.disableClose = true;
     config.autoFocus = true;
     config.data = element;
-    this.matDialog.open(EditUserComponent, config).afterClosed().subscribe(async res => {
-      console.log('Closed: ', res);
-      await this.refresh();
+    this.matDialog.open(EditUserComponent, config).afterClosed().subscribe(res => {
+      // console.log('Closed: ', res);
+      this.refresh();
     });
   }
 

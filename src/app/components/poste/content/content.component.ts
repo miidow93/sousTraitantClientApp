@@ -30,6 +30,7 @@ export class ContentComponent implements OnInit {
   societes = [];
   filteredSocietes: Observable<any[]>;
   societeControl = new FormControl();
+
   constructor(private servSociete: SocieteService,
               private formBuilder: FormBuilder,
               private service: VisiteurService,
@@ -41,7 +42,6 @@ export class ContentComponent implements OnInit {
     this.showSociete();
     this.posteForm = this.formBuilder.group({
       Societe: this.societeControl,
-
       nomComplet: [null, [Validators.required]],
       cinCnss: [null, [Validators.required]],
       personneService: [null, [Validators.required]],
@@ -91,7 +91,7 @@ export class ContentComponent implements OnInit {
   }
 
   private _filterSociete(value: string): any[] {
-    const filterValue = value != null ? value.toLowerCase() : "";
+    const filterValue = value != null ? value.toLowerCase() : '';
     return this.societes.filter(e => e.nomSociete.toLowerCase().includes(filterValue));
   }
 

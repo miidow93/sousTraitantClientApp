@@ -47,8 +47,6 @@ export class VisiteurComponent implements OnInit, AfterViewInit {
       this.oldDataSource = this.dataSource.data;
       this.data = <any[]>this.dataSource.data;
     });
-
-    
   }
 
   ngAfterViewInit(): void {
@@ -84,6 +82,8 @@ export class VisiteurComponent implements OnInit, AfterViewInit {
         // console.log('DataSOurce: ', this.dataSource.data);
         if (filter.length > 0) {
           this.dataSource.data = filter;
+        } else {
+          alert('Aucun visiteur dans cette date. Veuillez choisir une nouvelle date');
         }
       }
     }

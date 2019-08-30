@@ -38,14 +38,14 @@
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <button mat-icon-button (click)="onEdit(row)">
+          <button class="form-row justify-content-center" mat-icon-button (click)="onEdit(row)">
             <mat-icon>launch</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="onDelete(row.$key)">
+          <!-- <button mat-icon-button color="warn" (click)="onDelete(row.$key)">
             <mat-icon>delete_outline</mat-icon>
-          </button>
+          </button> -->
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

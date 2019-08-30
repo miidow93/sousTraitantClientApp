@@ -8,7 +8,7 @@
         <div class="ml-2">
             <button mat-button [routerLink]="[{ outlets: { admin: ['visiteurs'] } }]"> Visiteurs </button>
             <button mat-button [routerLink]="[{ outlets: { admin: ['regles'] } }]"> Règles </button>
-            <button mat-button [routerLink]="[{ outlets: { admin: ['users'] } }]"> Utilisateurs </button>
+            <button mat-button [routerLink]="[{ outlets: { admin: ['users'] } }]" *ngIf="role !== 'Directeur'"> Utilisateurs </button>
             <button mat-button [routerLink]="[{ outlets: { admin: ['stats'] } }]"> Statistiques </button>
 
             <button mat-button (click)="logout()"> Logout </button>
