@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token-interceptor';
 import { MaterialModule } from './material/material.module';
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 
 
