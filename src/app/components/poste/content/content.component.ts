@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { VisiteurService } from 'src/app/core/services/visiteur/visiteur.service';
 import { MatTableDataSource, MatAutocomplete } from '@angular/material';
 import { FormGroup, FormBuilder, NgForm, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,6 +6,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Societe } from 'src/app/shared/models/societe';
 import { SocieteService } from 'src/app/core/services/societe/societe.service';
+import { soustraitantService } from 'src/app/core/services/soustraitant/soustraitant.service';
 
 
 @Component({
@@ -20,11 +20,11 @@ export class ContentComponent implements OnInit {
   id: 0;
   nomComplet: '';
   cinCnss: '';
-  personneService: '';
+  Superviseur: '';
   telephone: '';
   numBadge: 0;
   // tslint:disable-next-line:max-line-length
-  displayedColumns: string[] = ['nomComplet', 'cinCnss', 'personneService', 'heureEntree', 'heureSortie', 'telephone', 'Societe', 'numBadge', 'actions'];
+  displayedColumns: string[] = ['nomComplet', 'cinCnss', 'Superviseur', 'heureEntree', 'heureSortie', 'telephone', 'Societe','Prestation', 'numBadge', 'actions'];
   datasource;
 
   societes = [];
@@ -33,7 +33,7 @@ export class ContentComponent implements OnInit {
 
   constructor(private servSociete: SocieteService,
               private formBuilder: FormBuilder,
-              private service: VisiteurService,
+              private service: soustraitantService,
               private router: Router) { }
 
   ngOnInit() {
@@ -44,10 +44,11 @@ export class ContentComponent implements OnInit {
       Societe: this.societeControl,
       nomComplet: [null, [Validators.required]],
       cinCnss: [null, [Validators.required]],
-      personneService: [null, [Validators.required]],
+      Superviseur: [null, [Validators.required]],
       // 'heureEntree': [null, [Validators.required]],
       // 'heureSortie': [null, [Validators.required]],
       // 'dateVisite': [null, [Validators.required]],
+      Prestation: [null,[Validators.required]],
       telephone: [null, [Validators.required]],
       numBadge: [null],
     });
@@ -56,8 +57,9 @@ export class ContentComponent implements OnInit {
     this.posteForm.reset();
   }
   showConfig() {
-    this.service.getVisitorsToday()
+    this.service.getSoustraitantsToday()
       .subscribe((data: any[]) => {
+        console.log(data);
         this.datasource = new MatTableDataSource(data);
       });
   }
@@ -71,7 +73,8 @@ export class ContentComponent implements OnInit {
   }
 
   onFormSubmit(form: NgForm) {
-    this.service.addVisitor(form).subscribe(res => {
+    console.log(form);
+    this.service.addSoustraitant(form).subscribe(res => {
       this.resetform();
       this.showConfig();
 
@@ -98,7 +101,7 @@ export class ContentComponent implements OnInit {
   OnSortie(id) {
     if (confirm('Validez la sortie ?')) {
       console.log('Sortie ID: ', id);
-      this.service.sortieVisiteur(id).subscribe(res => {
+      this.service.sortieSoustraitant(id).subscribe(res => {
         this.showConfig();
         console.log('Sortie Ok', res);
       },

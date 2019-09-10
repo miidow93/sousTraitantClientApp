@@ -17,9 +17,9 @@
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="personneService">
-      <th mat-header-cell *matHeaderCellDef> Personne/Service a Visité </th>
-      <td mat-cell *matCellDef="let element"> {{element.personneService}} </td>
+    <ng-container matColumnDef="Superviseur">
+      <th mat-header-cell *matHeaderCellDef>Superviseur </th>
+      <td mat-cell *matCellDef="let element"> {{element.superviseur}} </td>
     </ng-container>
 
     <!-- Symbol Column -->
@@ -44,7 +44,10 @@
       <th mat-header-cell *matHeaderCellDef> Societe </th>
       <td mat-cell *matCellDef="let element"> {{element.idSocieteNavigation.nomSociete}} </td>
     </ng-container>
-
+    <ng-container matColumnDef="Prestation">
+      <th mat-header-cell *matHeaderCellDef> Prestation </th>
+      <td mat-cell *matCellDef="let element"> {{element.prestation}} </td>
+    </ng-container>
     <ng-container matColumnDef="numBadge">
       <th mat-header-cell *matHeaderCellDef> Badge </th>
       <td mat-cell *matCellDef="let element"> {{element.numBadge}} </td>
@@ -74,21 +77,23 @@
       <mat-form-field class=" col-md-1  col-sm-3">
         <input matInput placeholder="Cin/Cnss" formControlName="cinCnss">
       </mat-form-field>&nbsp;
-      <mat-form-field class="col-md-2  col-sm-4">
-        <input matInput placeholder="Personne/Service a Visité" formControlName="personneService">
+      <mat-form-field class="col-md-1  col-sm-4">
+        <input matInput placeholder="Superviseur" formControlName="Superviseur">
       </mat-form-field>&nbsp;
       <mat-form-field class="col-md-2  col-sm-4">
         <span matPrefix>+212 &nbsp;</span>
         <input matInput placeholder="Telephone" formControlName="telephone" pattern="[0-9]{10}" maxlength="10">
       </mat-form-field>&nbsp;
-      <mat-form-field class="col-md-2  col-sm-4 ">
+      <mat-form-field class="col-md-1  col-sm-4 ">
         <input matInput placeholder="Societe" formControlName="Societe" [matAutocomplete]="auto">
       </mat-form-field>
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let societe of (filteredSocietes | async)" [value]="societe.nomSociete">
           {{societe.nomSociete}}</mat-option>
-      </mat-autocomplete>
-
+      </mat-autocomplete>&nbsp;
+      <mat-form-field class="col-md-2">
+        <textarea  matInput placeholder="Prestation" formControlName="Prestation"> </textarea>
+      </mat-form-field>
       <mat-form-field class="ml-2 col-md-1 col-sm-3">
         <input type="number" matInput placeholder="Badge" formControlName="numBadge" min="1">
       </mat-form-field>

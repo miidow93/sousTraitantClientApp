@@ -25,6 +25,12 @@ table th {
 .btn {
   background-color: orange;
 }
+textarea {
+  &::placeholder {    
+    // background-color: red;
+    text-align: center !important;
+  }
+}
 
 // @media only screen and (min-width: 603px) {
 //     span {

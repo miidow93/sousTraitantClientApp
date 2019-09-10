@@ -7,7 +7,7 @@ import { constants } from 'src/app/shared/constants';
 })
 export class HeaderComponent implements OnInit {
   img_Holcim = constants.img_Holcim;
-  logoVisiteur = constants.img_OurVisitor;
+  logoSoustraitant = constants.img_Soutraitant;
   
   constructor() { }
 
