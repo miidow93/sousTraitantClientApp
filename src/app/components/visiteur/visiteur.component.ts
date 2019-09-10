@@ -21,6 +21,7 @@ const moment = _rollupMoment || _moment;
     // here, due to limitations of our example generation script.
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }
   ],
 })
 export class VisiteurComponent implements OnInit, AfterViewInit {
@@ -39,14 +40,17 @@ export class VisiteurComponent implements OnInit, AfterViewInit {
   dateEntree = new FormControl(moment());
   dateSortie = new FormControl(moment());
   de; ds;
-  constructor(private visiteurService: VisiteurService) { }
+  constructor(private visiteurService: VisiteurService/*, private adapter: DateAdapter<any>*/) { }
 
   ngOnInit() {
+    // this.adapter.setLocale('fr');
     this.visiteurService.getAllVisitors().subscribe(res => {
-      console.log(res);
-      this.dataSource.data = res;
-      this.oldDataSource = this.dataSource.data;
-      this.data = <any[]>this.dataSource.data;
+      // console.log(res);
+      if (res.length > 0) {
+        this.dataSource.data = res;
+        this.oldDataSource = this.dataSource.data;
+        this.data = <any[]>this.dataSource.data;
+      }
     });
   }
 

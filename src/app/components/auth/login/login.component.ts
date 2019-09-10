@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormErrorStateMatcher } from 'src/app/core/handlers/form-error-state-matcher';
+
 
 @Component({
   selector: 'app-login',
@@ -18,9 +19,12 @@ export class LoginComponent implements OnInit {
   isLoadingResults = false;
   message = '';
 
+  /*, @Inject(LOCALE_ID) public locale: string*/
+
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    // console.log('Locale: ', this.locale);
     this.loginForm = this.formBuilder.group({
       username: [null, [Validators.required/*, Validators.minLength(6)*/]],
       password: [null, [Validators.required/*, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$')*/]]
