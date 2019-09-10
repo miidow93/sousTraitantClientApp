@@ -4,46 +4,45 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { constants } from 'src/app/shared/constants';
 
-const API = constants.api + 'visiteurs/';
-
+const API = constants.api + 'soustraitants/';
 @Injectable({
   providedIn: 'root'
 })
-export class VisiteurService {
+export class SousTraitantService {
 
   constructor(private http: HttpClient) { }
 
-  getVisitors() {
+
+  getSousTraitants() {
     return this.http.get<any>(`${API}`)
       .pipe(
-        tap(_ => this.log('visiteurs')),
-        catchError(this.handleError('visiteurs', []))
+        tap(_ => this.log('sous-traitant')),
+        catchError(this.handleError('sous-traitant', []))
       );
   }
 
-  getAllVisitors() {
+  getAllSousTraitants() {
     return this.http.get<any>(`${API}all`)
       .pipe(
-        tap(_ => this.log('visiteurs')),
-        catchError(this.handleError('visiteurs', []))
+        tap(_ => this.log('get all sous-traitant')),
+        catchError(this.handleError('get all sous-traitant', []))
       );
   }
 
-
-  // Abdel
-  getVisitorsToday() {
+  getSoustraitantsToday() {
     return this.http.get<any>(`${API}today`)
       .pipe(
-        tap(_ => this.log('visiteurs')),
-        catchError(this.handleError('visiteurs', []))
-      );
+        tap(_ => this.log('superviseurs')),
+        catchError(this.handleError('superviseurs', []))
+      )
+      ;
   }
 
-  addVisitor(data) {
+  addSoustraitant(data) {
     return this.http.post(`${API}postev`, data);
   }
 
-  sortieVisiteur(id: number) {
+  sortieSoustraitant(id: number) {
     return this.http.get(`${API}sortie/${id}`);
   }
 

@@ -6,7 +6,7 @@
         <h1 *ngIf="role">{{role}}</h1>
         <span class="menu-spacer"></span>
         <div class="ml-2">
-            <button mat-button [routerLink]="[{ outlets: { admin: ['visiteurs'] } }]"> Visiteurs </button>
+            <button mat-button [routerLink]="[{ outlets: { admin: ['sousTraitant'] } }]"> Sous-Traitants </button>
             <button mat-button [routerLink]="[{ outlets: { admin: ['regles'] } }]"> Règles </button>
             <button mat-button [routerLink]="[{ outlets: { admin: ['users'] } }]" *ngIf="role !== 'Directeur'">
                 Utilisateurs </button>

@@ -4,7 +4,7 @@ import { constants } from 'src/app/shared/constants';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-const API = constants.api + 'stats/';
+const API = constants.api + 'stats/sousTraitant/';
 
 @Injectable({
   providedIn: 'root'

@@ -16,7 +16,7 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { NavbarComponent } from './components/admin/navbar/navbar.component';
-import { VisiteurComponent } from './components/visiteur/visiteur.component';
+import { SousTraitantComponent } from './components/sousTraitant/sous-traitant.component';
 import { RegleComponent } from './components/regle/regle.component';
 import { NgbModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListRegleComponent } from './components/regle/list-regle/list-regle.component';
@@ -42,7 +42,7 @@ export function getToken() {
     FooterComponent,
     HeaderComponent,
     NavbarComponent,
-    VisiteurComponent,
+    SousTraitantComponent,
     RegleComponent,
     ListRegleComponent,
     UserComponent,

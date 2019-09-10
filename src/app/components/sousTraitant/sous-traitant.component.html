@@ -53,9 +53,14 @@
                     <td mat-cell *matCellDef="let element"> {{element.cinCnss}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="personneService">
-                    <th mat-header-cell *matHeaderCellDef> Personne ou service à visiter </th>
-                    <td mat-cell *matCellDef="let element"> {{element.personneService}} </td>
+                <ng-container matColumnDef="superviseur">
+                    <th mat-header-cell *matHeaderCellDef> Superviseur </th>
+                    <td mat-cell *matCellDef="let element"> {{element.prestation}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="prestation">
+                    <th mat-header-cell *matHeaderCellDef> Prestation </th>
+                    <td mat-cell *matCellDef="let element"> {{element.prestation}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="societe">

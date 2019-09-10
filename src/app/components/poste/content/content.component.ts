@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Societe } from 'src/app/shared/models/societe';
 import { SocieteService } from 'src/app/core/services/societe/societe.service';
-import { soustraitantService } from 'src/app/core/services/soustraitant/soustraitant.service';
+import { SousTraitantService } from 'src/app/core/services/soustraitant/sous-traitant.service';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class ContentComponent implements OnInit {
   telephone: '';
   numBadge: 0;
   // tslint:disable-next-line:max-line-length
-  displayedColumns: string[] = ['nomComplet', 'cinCnss', 'Superviseur', 'heureEntree', 'heureSortie', 'telephone', 'Societe','Prestation', 'numBadge', 'actions'];
+  displayedColumns: string[] = ['nomComplet', 'cinCnss', 'Superviseur', 'heureEntree', 'heureSortie', 'telephone', 'Societe', 'Prestation', 'numBadge', 'actions'];
   datasource;
 
   societes = [];
@@ -33,7 +33,7 @@ export class ContentComponent implements OnInit {
 
   constructor(private servSociete: SocieteService,
               private formBuilder: FormBuilder,
-              private service: soustraitantService,
+              private service: SousTraitantService,
               private router: Router) { }
 
   ngOnInit() {

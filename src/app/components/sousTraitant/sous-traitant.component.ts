@@ -1,20 +1,19 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { VisiteurService } from 'src/app/core/services/visiteur/visiteur.service';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment } from 'moment';
 import { FormControl } from '@angular/forms';
-import { Visiteur } from 'src/app/shared/models/visiteur';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { SousTraitantService } from 'src/app/core/services/soustraitant/sous-traitant.service';
 
 const moment = _rollupMoment || _moment;
 
 @Component({
-  selector: 'app-visiteur',
-  templateUrl: './visiteur.component.html',
-  styleUrls: ['./visiteur.component.scss'],
+  selector: 'app-sous-traitant',
+  templateUrl: './sous-traitant.component.html',
+  styleUrls: ['./sous-traitant.component.scss'],
   providers: [
     // `MomentDateAdapter` and `MAT_MOMENT_DATE_FORMATS` can be automatically provided by importing
     // `MatMomentDateModule` in your applications root module. We provide it at the component level
@@ -24,12 +23,12 @@ const moment = _rollupMoment || _moment;
     { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }
   ],
 })
-export class VisiteurComponent implements OnInit, AfterViewInit {
+export class SousTraitantComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   // tslint:disable-next-line:max-line-length
-  displayedColumns: string[] = ['id', 'nomComplet', 'cinCnss', 'personneService', 'societe', 'dateVisite', 'heureEntree', 'heureSortie', 'telephone'];
+  displayedColumns: string[] = ['id', 'nomComplet', 'cinCnss', 'superviseur', 'prestation', 'societe', 'dateVisite', 'heureEntree', 'heureSortie', 'telephone'];
 
   dataSource = new MatTableDataSource();
   oldDataSource;
@@ -40,11 +39,11 @@ export class VisiteurComponent implements OnInit, AfterViewInit {
   dateEntree = new FormControl(moment());
   dateSortie = new FormControl(moment());
   de; ds;
-  constructor(private visiteurService: VisiteurService/*, private adapter: DateAdapter<any>*/) { }
+  constructor(private sousTraitantService: SousTraitantService) { }
 
   ngOnInit() {
     // this.adapter.setLocale('fr');
-    this.visiteurService.getAllVisitors().subscribe(res => {
+    this.sousTraitantService.getAllSousTraitants().subscribe(res => {
       // console.log(res);
       if (res.length > 0) {
         this.dataSource.data = res;
