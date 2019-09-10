@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FormErrorStateMatcher } from 'src/app/core/handlers/form-error-state-matcher';
 import { RegleService } from 'src/app/core/services/regle/regle.service';
 import { MatDialogRef } from '@angular/material';
+import { DataService } from 'src/app/shared/services/data.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-regle',
@@ -18,9 +20,14 @@ export class AddRegleComponent implements OnInit {
   fileData: File = null;
   previewUrl: any = null;
 
-  constructor(private formBuilder: FormBuilder, private regleService: RegleService, private dialogRef: MatDialogRef<AddRegleComponent>) { }
+  constructor(private formBuilder: FormBuilder,
+              private regleService: RegleService,
+              private dialogRef: MatDialogRef<AddRegleComponent>,
+              private ruleDataService: DataService) { }
 
   ngOnInit() {
+    this.ruleDataService.currentRuleDataSource.subscribe();
+
     this.regleForm = this.formBuilder.group({
       numOrdre: [null, [Validators.required, Validators.min(1)]],
       nom: [null, [Validators.required]],
@@ -31,7 +38,7 @@ export class AddRegleComponent implements OnInit {
   }
 
   onFormSubmit(form) {
-    console.log(form.value);
+    // console.log(form.value);
     const data = {
       numOrdre: form.value.numOrdre,
       nom: form.value.nom,
@@ -40,16 +47,18 @@ export class AddRegleComponent implements OnInit {
       show: (form.value.show) ? 1 : 0
     };
 
-    this.regleService.addRule(data).subscribe(res => console.log(res));
+    this.regleService.addRule(data).subscribe(async res => {
+      // tslint:disable-next-line:no-shadowed-variable
+      await this.regleService.getRules().pipe(take(1)).toPromise().then(data => this.ruleDataService.changeRuleDataSource(data));
+    });
     this.regleForm.reset();
-    this.dialogRef.close();
-    // console.log('FileToUpload: ', this.previewUrl);
-    // this.http.post('http://localhost:4772/api/upload/', formData).subscribe(res => console.log(res));
-    
+    this.close();
+    // this.dialogRef.afterClosed().subscribe(res => this.updateDataSource());
   }
 
   public upload(event: any): void {
     this.fileData = event.target.files[0];
+    console.log('FileName: ', this.fileData.name);
     this.preview();
   }
 
@@ -69,4 +78,15 @@ export class AddRegleComponent implements OnInit {
     };
   }
 
+  /*updateDataSource() {
+    this.ruleDataService.currentRuleDataSource.subscribe();
+    this.regleService.getRules().subscribe(res =>  {
+      console.log('Add Rule Change DataSource');
+      this.ruleDataService.changeRuleDataSource(res);
+    });
+  }*/
+
+  close() {
+    this.dialogRef.close();
+  }
 }

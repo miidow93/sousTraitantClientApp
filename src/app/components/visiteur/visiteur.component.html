@@ -1,4 +1,4 @@
-<div class="container">
+<div class="myContainer">
     <h2 class="mt-3">Listes des visiteurs</h2>
     <div class="row justify-content-center">
         <div class="justify-content-center" class="mt-3">
@@ -19,9 +19,14 @@
             <button class="ml-2 btn btn-link" (click)="refresh()" mat-button>
                 <i class="fas fa-sync-alt"></i>
             </button>
+            <div class="ml-2 float-right">
+                <button [useExistingCss]="true"
+                    [printStyle]="{th : {'border': 'solid 1px'},td : {'border': 'solid 1px'}, table : {'border': 'solid 1px', 'text-align': 'center'}, tr: {'border': 'solid 1px'}}"
+                    printSectionId="print-section" ngxPrint class="mt-2 mb-3" mat-raised-button
+                    color="primary">Imprimer</button>
+            </div>
         </div>
     </div>
-
 
     <div class="mat-elevation-z8">
         <div id="print-section">
@@ -46,6 +51,16 @@
                 <ng-container matColumnDef="cinCnss">
                     <th mat-header-cell *matHeaderCellDef> CIN/CNSS </th>
                     <td mat-cell *matCellDef="let element"> {{element.cinCnss}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="personneService">
+                    <th mat-header-cell *matHeaderCellDef> Personne ou service à visiter </th>
+                    <td mat-cell *matCellDef="let element"> {{element.personneService}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="societe">
+                    <th mat-header-cell *matHeaderCellDef> societe </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idSocieteNavigation.nomSociete}} </td>
                 </ng-container>
 
                 <!-- Symbol Column -->
@@ -81,9 +96,6 @@
         </div>
 
     </div>
-    <div class="float-right">
-        <button [useExistingCss]="true"
-            [printStyle]="{th : {'border': 'solid 1px'},td : {'border': 'solid 1px'}, table : {'border': 'solid 1px'}}"
-            printSectionId="print-section" ngxPrint class="mt-2 mb-3" mat-raised-button>print</button>
-    </div>
+
+
 </div>

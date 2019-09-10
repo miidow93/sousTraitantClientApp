@@ -4,6 +4,8 @@ import { FormErrorStateMatcher } from 'src/app/core/handlers/form-error-state-ma
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { RoleService } from 'src/app/core/services/role/role.service';
+import { DataService } from 'src/app/shared/services/data.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -19,17 +21,19 @@ export class RegisterComponent implements OnInit {
   isLoadingResults = false;
   matcher = new FormErrorStateMatcher();
   roles;
+  dataSource;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private formBuilder: FormBuilder, private router: Router, private roleService: RoleService, private userService: UserService) { }
+  constructor(private formBuilder: FormBuilder,
+              private router: Router,
+              private roleService: RoleService,
+              private userService: UserService,
+              private userDataService: DataService) { }
 
   userToUpdate;
 
   ngOnInit() {
-    // this.authorized = localStorage.getItem('role');
-    /*if (this.authorized !== 'Admin') {
-      this.router.navigate(['login']);
-    }*/
+    this.userDataService.currentUserDataSource.subscribe();
     this.registerForm = this.formBuilder.group({
       nomComplet: [null, [Validators.required]],
       email: [null, [Validators.required]],
@@ -43,19 +47,23 @@ export class RegisterComponent implements OnInit {
         this.roles = res;
       }
     });
+
+    this.registerForm.reset();
   }
 
   onFormSubmit(form: NgForm) {
     this.userService.addUser(form)
-      .subscribe(res => {
-        console.log(res);
+      .subscribe(async res => {
+        // console.log(res);
         this.registerForm.reset();
+        // this.refresh();
+        await this.userService.getUsers().pipe(take(1)).toPromise().then(data => this.userDataService.changeUserDataSource(data));
       }, err => {
         console.log(err);
       });
   }
 
-  public findInvalidControls() {
+  /*public findInvalidControls() {
     const invalid = [];
     const controls = this.registerForm.controls;
     for (const name in controls) {
@@ -66,6 +74,16 @@ export class RegisterComponent implements OnInit {
     }
     return invalid;
   }
+
+  refresh() {
+    this.userService.getUsers().subscribe(res => {
+      this.dataSource = res; // new MatTableDataSource(res);
+      // this.changeDetectorRefs.detectChanges();
+      this.userDataService.changeUserDataSource(this.dataSource);
+    });
+
+    this.userDataService.currentUserDataSource.subscribe(data => console.log('DataSource: ', data));
+  }*/
 
 
 }

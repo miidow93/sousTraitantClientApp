@@ -2,13 +2,14 @@
     <mat-toolbar-row>
         <!-- <button mat-icon-button>
             <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-        </button> -->
-        <h1>Admin</h1>
+        </button>  -->
+        <h1 *ngIf="role">{{role}}</h1>
         <span class="menu-spacer"></span>
         <div class="ml-2">
             <button mat-button [routerLink]="[{ outlets: { admin: ['visiteurs'] } }]"> Visiteurs </button>
             <button mat-button [routerLink]="[{ outlets: { admin: ['regles'] } }]"> Règles </button>
-            <button mat-button [routerLink]="[{ outlets: { admin: ['users'] } }]" *ngIf="role !== 'Directeur'"> Utilisateurs </button>
+            <button mat-button [routerLink]="[{ outlets: { admin: ['users'] } }]" *ngIf="role !== 'Directeur'">
+                Utilisateurs </button>
             <button mat-button [routerLink]="[{ outlets: { admin: ['stats'] } }]"> Statistiques </button>
 
             <button mat-button (click)="logout()"> Logout </button>
@@ -16,3 +17,37 @@
         </div>
     </mat-toolbar-row>
 </mat-toolbar>
+
+<!-- <nav class="navbar navbar-expand-lg" style="background-color: #3f51b5; color: white;">
+    <a *ngIf="role; else dashboard">{{role}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <button class="nav-link" mat-button [routerLink]="[{ outlets: { admin: ['visiteurs'] } }]"> Visiteurs </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" mat-button [routerLink]="[{ outlets: { admin: ['regles'] } }]"> Règles </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" mat-button [routerLink]="[{ outlets: { admin: ['users'] } }]" *ngIf="role !== 'Directeur'">
+                    Utilisateurs </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" mat-button [routerLink]="[{ outlets: { admin: ['stats'] } }]"> Statistiques </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" mat-button (click)="logout()"> Logout </button>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<ng-template #dashboard>
+    Dashboard
+</ng-template> -->

@@ -1,27 +1,33 @@
-
 .example-container {
-    width: 100%;
-    overflow: auto;
+  width: 100%;
+  overflow: auto;
 }
 table {
-    width: 100%;
+  width: 100%;
 }
-.mat-cell, .mat-header-cell {
-    text-align: center;
-    border-right: 0.5px solid #e0e0e0;
+.mat-cell,
+.mat-header-cell {
+  text-align: center;
+  border-right: 0.5px solid #e0e0e0;
 }
 
 table th {
-    background-color: #b0e0e6;
-    border-color: cadetblue;
+  background-color: #b0e0e6;
+  border-color: cadetblue;
 }
-.mat-form-field{
-    padding: 0;
-}/*  */
-.formPoste{
-    margin-top:2%;
-    background: #b0e0e6;
+.mat-form-field {
+  padding: 0;
+} /*  */
+.formPoste {
+  margin-top: 2%;
+  background: #b0e0e6;
 }
 .btn {
-    background-color: orange;
+  background-color: orange;
 }
+
+// @media only screen and (min-width: 603px) {
+//     span {
+//         background-color: red;
+//     }
+// }

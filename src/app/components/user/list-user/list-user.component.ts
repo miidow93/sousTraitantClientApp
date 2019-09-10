@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Users } from 'src/app/shared/models/users';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { MatDialog, MatDialogConfig, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { EditUserComponent } from '../edit-user/edit-user.component';
+import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
   selector: 'app-list-user',
@@ -25,7 +26,8 @@ export class ListUserComponent implements OnInit {
 
   constructor(private userService: UserService,
               private changeDetectorRefs: ChangeDetectorRef,
-              private matDialog: MatDialog) { }
+              private matDialog: MatDialog,
+              private userDataService: DataService) { }
 
   ngOnInit() {
     this.refresh();
@@ -40,7 +42,7 @@ export class ListUserComponent implements OnInit {
     config.autoFocus = true;
     config.data = element;
     this.matDialog.open(EditUserComponent, config).afterClosed().subscribe(res => {
-      // console.log('Closed: ', res);
+      console.log('Refresh Edit');
       this.refresh();
     });
   }
@@ -61,9 +63,15 @@ export class ListUserComponent implements OnInit {
   }
 
   refresh() {
-    this.userService.getUsers().subscribe(res => {
+    /*this.userService.getUsers().subscribe(res => {
       this.dataSource = res; // new MatTableDataSource(res);
-      this.changeDetectorRefs.detectChanges();
-    });
+      console.log('Get Users: ', this.dataSource);
+      // this.changeDetectorRefs.detectChanges();
+      this.userDataService.changeUserDataSource(this.dataSource);
+    });*/
+
+    this.userDataService.currentUserDataSource.subscribe(data => this.dataSource = data);
   }
+
+
 }

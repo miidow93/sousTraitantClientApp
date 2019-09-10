@@ -6,6 +6,8 @@ import { RegleService } from 'src/app/core/services/regle/regle.service';
 import { MatDialog, MatTableDataSource, MatPaginator, MatDialogConfig } from '@angular/material';
 import { AddRegleComponent } from './add-regle/add-regle.component';
 import { EditRegleComponent } from './edit-regle/edit-regle.component';
+import { constants } from 'src/app/shared/constants';
+import { DataService } from 'src/app/shared/services/data.service';
 
 
 @Component({
@@ -23,8 +25,9 @@ export class RegleComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   constructor(private dialog: MatDialog,
-    private regleService: RegleService,
-    private changeDetectorRefs: ChangeDetectorRef) { }
+              private regleService: RegleService,
+              private changeDetectorRefs: ChangeDetectorRef,
+              private ruleDataService: DataService) { }
 
 
 
@@ -52,10 +55,14 @@ export class RegleComponent implements OnInit {
 
   refresh() {
     this.regleService.getRules().subscribe((res: any[]) => {
-      this.listRegle.data = res;
-      this.listRegle.paginator = this.paginator;
+      // this.listRegle.data = res;
+      // this.listRegle.paginator = this.paginator;
+      // console.log('Get Rules: ', this.listRegle.data);
+      // this.changeDetectorRefs.detectChanges();
+      this.ruleDataService.changeRuleDataSource(res);
     });
-    this.changeDetectorRefs.detectChanges();
+
+    this.ruleDataService.currentRuleDataSource.subscribe(data => {this.listRegle.data = data; this.listRegle.paginator = this.paginator;});
   }
 
   onEdit(element) {
@@ -66,16 +73,14 @@ export class RegleComponent implements OnInit {
     config.width = '80%';
     config.data = element;
     this.dialog.open(EditRegleComponent, config)
-      .afterClosed().subscribe(async res => {
+      .afterClosed().subscribe(res => {
         console.log('Close: ', res);
-        await this.refresh();
+        this.refresh();
       });
   }
 
-  onDelete(id) { }
-
   createImagePath(serverPath: string) {
-    return `http://192.168.1.105:1020/${serverPath}`;
+    return `${constants.serverImg}${serverPath}`;
     // return `http://localhost:4772/${serverPath}`;
   }
 

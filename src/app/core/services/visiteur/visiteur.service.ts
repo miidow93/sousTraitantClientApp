@@ -21,6 +21,14 @@ export class VisiteurService {
       );
   }
 
+  getAllVisitors() {
+    return this.http.get<any>(`${API}all`)
+      .pipe(
+        tap(_ => this.log('visiteurs')),
+        catchError(this.handleError('visiteurs', []))
+      );
+  }
+
 
   // Abdel
   getVisitorsToday() {

@@ -27,7 +27,8 @@ export class VisiteurComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
-  displayedColumns: string[] = ['id', 'nomComplet', 'cinCnss', 'dateVisite', 'heureEntree', 'heureSortie', 'telephone'];
+  // tslint:disable-next-line:max-line-length
+  displayedColumns: string[] = ['id', 'nomComplet', 'cinCnss', 'personneService', 'societe', 'dateVisite', 'heureEntree', 'heureSortie', 'telephone'];
 
   dataSource = new MatTableDataSource();
   oldDataSource;
@@ -41,8 +42,8 @@ export class VisiteurComponent implements OnInit, AfterViewInit {
   constructor(private visiteurService: VisiteurService) { }
 
   ngOnInit() {
-    this.visiteurService.getVisitors().subscribe(res => {
-      // console.log(res);
+    this.visiteurService.getAllVisitors().subscribe(res => {
+      console.log(res);
       this.dataSource.data = res;
       this.oldDataSource = this.dataSource.data;
       this.data = <any[]>this.dataSource.data;

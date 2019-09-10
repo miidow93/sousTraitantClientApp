@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegleService } from 'src/app/core/services/regle/regle.service';
+import { constants } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-list-regle',
@@ -14,19 +15,24 @@ export class ListRegleComponent implements OnInit {
   constructor(private regleService: RegleService) { }
 
   ngOnInit() {
-    this.regleService.getRules().subscribe((res: any[]) => {
-      for (let i = 0; i < res.length; i++) {
-        if (res[i].show) {
-          this.imageToShow.push(res[i]);
-        }
-      }
-      this.imageServer = res
-    });
+    this.refresh();
   }
 
   createImagePath(serverPath: string) {
-    return `http://192.168.1.105:1020/${serverPath}`;
+    return `${constants.serverImg}${serverPath}`;
     // return `http://localhost:4772/${serverPath}`;
+  }
+
+  refresh() {
+    this.regleService.getRules().subscribe((res: any[]) => {
+      for (let i = 0; i < res.length; i++) {
+        if (res[i].show) {
+          // console.log('Image push', res[i].nom);
+          this.imageToShow.push(res[i]);
+        }
+      }
+      this.imageServer = res;
+    });
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegleService } from 'src/app/core/services/regle/regle.service';
+import { constants } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-poste-regle',
@@ -28,7 +29,7 @@ export class PosteRegleComponent implements OnInit {
   }
 
   createImagePath(serverPath: string) {
-    return `http://192.168.1.105:1020/${serverPath}`;
+    return `${constants.serverImg}${serverPath}`;
     // return `http://localhost:4772/${serverPath}`;
   }
 }

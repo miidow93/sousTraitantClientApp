@@ -25,12 +25,14 @@
         <div>
             <input type="file" id="file" name="file" class="inputfile" #file (change)="upload($event);" />
             <label for="file"> <i class="fas fa-upload"></i> Choose a file</label>
+            <span class="ml-2 h6" *ngIf="fileData">{{fileData.name}}</span>
         </div>
         <div class="d-flex form-row justify-content-start">
             <mat-checkbox class="ml-2 mt-2" formControlName="show" name="show">Afficher la règle</mat-checkbox>
         </div>
 
         <div class="d-flex form-row justify-content-end">
+            <button class="mr-2" mat-raised-button (click)="close()">Annuler</button>
             <button mat-raised-button>Ajouter</button>
         </div>
     </form>
