@@ -44,7 +44,7 @@ export class ContentComponent implements OnInit {
       Societe: this.societeControl,
       nomComplet: [null, [Validators.required]],
       cinCnss: [null, [Validators.required]],
-      Superviseur: [null, [Validators.required]],
+      superviseur: [null, [Validators.required]],
       // 'heureEntree': [null, [Validators.required]],
       // 'heureSortie': [null, [Validators.required]],
       // 'dateVisite': [null, [Validators.required]],

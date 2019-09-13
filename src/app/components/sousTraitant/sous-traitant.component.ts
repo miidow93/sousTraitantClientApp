@@ -77,18 +77,19 @@ export class SousTraitantComponent implements OnInit, AfterViewInit {
     if (this.de && this.ds) {
       // console.log('Init');
       if (this.de > this.ds) {
-        alert('La date d\'entree doit être supérieure à la date de sortie');
+        alert('La date d\'entree doit être inférieure à la date de sortie');
       } else {
         // console.log(`Du ${this.de}, Au ${this.ds}`);
         const filter = this.data.filter(x => x.dateVisite >= this.de && x.dateVisite <= this.ds);
         // const filter = this.data.filter(x => x.dateVisite === this.de && x.dateVisite === this.ds);
         // console.log('Filter', filter);
         // console.log('DataSOurce: ', this.dataSource.data);
-        if (filter.length > 0) {
+        this.dataSource.data = filter;
+        /*if (filter.length > 0) {
           this.dataSource.data = filter;
         } else {
           alert('Aucun visiteur dans cette date. Veuillez choisir une nouvelle date');
-        }
+        }*/
       }
     }
   }
@@ -108,7 +109,7 @@ export class SousTraitantComponent implements OnInit, AfterViewInit {
         result += `-0${Number(validateMonth) + 1}`;
       }
 
-      if (Number(validateDay) > 10) {
+      if (Number(validateDay) >= 10) {
         result += `-${validateDay}${time}`;
       } else {
         result += `-0${validateDay}${time}`;

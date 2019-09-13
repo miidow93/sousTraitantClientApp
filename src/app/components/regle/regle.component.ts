@@ -55,10 +55,6 @@ export class RegleComponent implements OnInit {
 
   refresh() {
     this.regleService.getRules().subscribe((res: any[]) => {
-      // this.listRegle.data = res;
-      // this.listRegle.paginator = this.paginator;
-      // console.log('Get Rules: ', this.listRegle.data);
-      // this.changeDetectorRefs.detectChanges();
       this.ruleDataService.changeRuleDataSource(res);
     });
 
