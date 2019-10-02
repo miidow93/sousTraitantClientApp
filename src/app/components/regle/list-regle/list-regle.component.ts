@@ -17,6 +17,7 @@ export class ListRegleComponent implements OnInit {
   imageToShow = [];
   constructor(private regleService: RegleService, private ruleDataService: DataService, private config: NgbCarouselConfig) {
     config.interval = null;
+    // config.wrap = false;
   }
 
   ngOnInit() {

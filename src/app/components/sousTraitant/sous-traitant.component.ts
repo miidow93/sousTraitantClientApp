@@ -7,6 +7,7 @@ import { default as _rollupMoment } from 'moment';
 import { FormControl } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { SousTraitantService } from 'src/app/core/services/soustraitant/sous-traitant.service';
+import { ExcelService } from 'src/app/core/services/excel/excel.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -39,7 +40,7 @@ export class SousTraitantComponent implements OnInit, AfterViewInit {
   dateEntree = new FormControl(moment());
   dateSortie = new FormControl(moment());
   de; ds;
-  constructor(private sousTraitantService: SousTraitantService) { }
+  constructor(private sousTraitantService: SousTraitantService, private excelService: ExcelService) { }
 
   ngOnInit() {
     // this.adapter.setLocale('fr');
@@ -116,6 +117,12 @@ export class SousTraitantComponent implements OnInit, AfterViewInit {
       }
     }
     return result;
+  }
+
+  exporter() {
+    console.log('Date: ', this.de + ' ' + this.ds);
+    const date = { dateEntree: this.de, dateSortie: this.ds };
+    this.excelService.exportToExcel(date).subscribe(res => console.log('Export: ', res));
   }
 
   refresh() {

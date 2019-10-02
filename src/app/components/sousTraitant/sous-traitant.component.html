@@ -19,12 +19,12 @@
             <button class="ml-2 btn btn-link" (click)="refresh()" mat-button>
                 <i class="fas fa-sync-alt"></i>
             </button>
-            <div class="ml-2 float-right">
-                <button [useExistingCss]="true"
-                    [printStyle]="{th : {'border': 'solid 1px'},td : {'border': 'solid 1px'}, 'mat-paginator': {'display': 'none'}, table : {'border': 'solid 1px', 'text-align': 'center'}, tr: {'border': 'solid 1px'}}"
-                    printSectionId="print-section" ngxPrint class="mt-2 mb-3" mat-raised-button
-                    color="primary">Imprimer</button>
-            </div>
+
+            <button mat-raised-button (click)="exporter()" class="ml-2">Exporter</button>
+            <button [useExistingCss]="true"
+                [printStyle]="{th : {'border': 'solid 1px'},td : {'border': 'solid 1px'}, 'mat-paginator': {'display': 'none'}, table : {'border': 'solid 1px', 'text-align': 'center'}, tr: {'border': 'solid 1px'}}"
+                printSectionId="print-section" ngxPrint class="ml-2 " mat-raised-button
+                color="primary">Imprimer</button>
         </div>
     </div>
 
