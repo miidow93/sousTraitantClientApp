@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { SousTraitantService } from 'src/app/core/services/soustraitant/sous-traitant.service';
 import { ExcelService } from 'src/app/core/services/excel/excel.service';
+import { saveAs } from 'file-saver/';
 
 const moment = _rollupMoment || _moment;
 
@@ -104,8 +105,8 @@ export class SousTraitantComponent implements OnInit, AfterViewInit {
     if (Number(validateMonth) < 9 && Number(validateDay) < 10) {
       result += `-0${Number(validateMonth) + 1}-0${validateDay}${time}`;
     } else {
-      if (Number(validateMonth) > 9) {
-        result += `-${validateMonth}`;
+      if (Number(validateMonth) >= 9) {
+        result += `-${Number(validateMonth) + 1}`;
       } else {
         result += `-0${Number(validateMonth) + 1}`;
       }
@@ -121,8 +122,19 @@ export class SousTraitantComponent implements OnInit, AfterViewInit {
 
   exporter() {
     console.log('Date: ', this.de + ' ' + this.ds);
-    const date = { dateEntree: this.de, dateSortie: this.ds };
-    this.excelService.exportToExcel(date).subscribe(res => console.log('Export: ', res));
+    const date = { startDate: this.de, endDate: this.ds };
+    this.excelService.exportToExcel(date).subscribe(res => {
+      console.log('Res: ', res);
+      const blob = new Blob([res], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+      const url = window.URL.createObjectURL(blob);
+      const pwa = window.open(url);
+      // const filename = uuid.v4();
+      const filename = 'ourvisitor_' + moment(new Date()).format('DDMMYYYY_hhmmssSSS');
+      saveAs(blob, `${filename}.xlsx`);
+      if(!pwa || pwa.closed || typeof pwa.closed === 'undefined') {
+        alert('Please disable your Pop-up blocker and try again.');
+      }
+    });
   }
 
   refresh() {
